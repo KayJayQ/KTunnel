@@ -8,8 +8,10 @@
 
 package KTunnelGui;
 
+import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
 import java.awt.Toolkit;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 import network.*;
@@ -32,7 +34,7 @@ public class KTunnel {
         return;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedEncodingException, InvalidAttributeValueException {
         KTunnel program = new KTunnel();
         program.loadConfig("null");
 
@@ -47,8 +49,13 @@ public class KTunnel {
         msg.header.timestamp = new Date().getTime();
         msg.header.msg_size = 3;
         msg.header.msg_md5 = UniqueID.getMD5("CLS");
-        System.out.println(msg.header.encode());
-        System.out.println(msg.header.encode().length());
-        System.out.println(msg.header.toString());
+        byte[] content = "IloveU".getBytes("UTF-8");
+        msg.setContent(content);
+        
+        byte[] buffer = msg.encode();
+        Message newMessage = new Message(buffer);
+        System.out.println(newMessage.header);
+        System.out.println(newMessage.getTextMessage());
+        System.out.println(newMessage.isValid());
     }
 }
