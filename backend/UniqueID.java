@@ -1,10 +1,10 @@
-package network;
+package backend;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class UniqueID {
-    private String id;
+    public String id;
 
     private final static String[] strHex = { "0", "1", "2", "3", "4", "5", 
         "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
